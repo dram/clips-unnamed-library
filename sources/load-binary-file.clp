@@ -1,0 +1,8 @@
+(deffunction load-plain-file (?path)
+  (bind ?result "")
+  (bind ?file (gensym*))
+  (open ?path ?file)
+  (while (neq (bind ?c (get-char ?file)) -1)
+    (bind ?result (format nil "%s%c" ?result ?c)))
+  (close ?file)
+  ?result)

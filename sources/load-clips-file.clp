@@ -1,0 +1,8 @@
+(deffunction load-clips-file (?path)
+  (bind ?result (create$))
+  (bind ?file (gensym*))
+  (open ?path ?file)
+  (while (neq (bind ?expression (read ?file)) EOF)
+    (bind ?result ?result ?expression))
+  (close ?file)
+  ?result)

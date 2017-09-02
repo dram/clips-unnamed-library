@@ -1,0 +1,5 @@
+(deffunction save-plain-file (?path ?content)
+  (bind ?id (gensym*))
+  (open ?path ?id "w")
+  (printout ?id ?content)
+  (close ?id))
