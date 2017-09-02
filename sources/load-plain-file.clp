@@ -3,6 +3,6 @@
   (bind ?file (gensym*))
   (open ?path ?file)
   (while (neq (bind ?line (readline ?file)) EOF)
-    (bind ?result (format nil "%s%s" ?result ?line)))
+    (bind ?result (format nil "%s%s%n" ?result ?line)))
   (close ?file)
   ?result)
