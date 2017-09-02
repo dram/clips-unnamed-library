@@ -22,8 +22,10 @@
        then (bind ?separator (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
       (case -separators
-       then (bind ?separators (nth$ (+ ?i 1) ?options))
-            (bind ?i (+ ?i 2)))
+       then (bind ?separators (create$))
+            (while (eq STRING
+                       (type (bind ?s (nth$ (bind ?i (+ ?i 1)) ?options))))
+              (bind ?separators ?separators ?s)))
       (default error)))
 
   (if (= ?max-substring 0)
@@ -49,7 +51,9 @@
                                     ?string)
                         -max-split (- ?max-split 1)
                         -max-substring (- ?max-substring 1)
-                        -separator ?separator))
+                        -omit-empty ?omit-empty
+                        -separator ?separator
+                        -separators ?separators))
         (if (and ?omit-empty
                  (= ?i 1))
          then ?rest
