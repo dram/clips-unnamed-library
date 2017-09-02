@@ -1,8 +1,9 @@
 (deffunction split-string (?string $?options)
   (bind ?max-split -1)
   (bind ?max-substring -1)
-  ;; FIXME: treat "" as separator to split on all kind of whitespaces
-  (bind ?separator " ")
+  (bind ?omit-empty TRUE)
+  (bind ?separator nil)
+  (bind ?separators nil)
 
   (bind ?option-length (length$ ?options))
   (bind ?i 1)
@@ -14,8 +15,14 @@
       (case -max-substring
        then (bind ?max-substring (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
+      (case -omit-empty
+       then (bind ?omit-empty (nth$ (+ ?i 1) ?options))
+            (bind ?i (+ ?i 2)))
       (case -separator
        then (bind ?separator (nth$ (+ ?i 1) ?options))
+            (bind ?i (+ ?i 2)))
+      (case -separators
+       then (bind ?separators (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
       (default error)))
 
@@ -25,13 +32,25 @@
   (if (= ?max-split 0)
    then (return (create$ ?string)))
 
-  (bind ?i (str-index ?separator ?string))
+  (if (and (eq nil ?separator)
+           (eq nil ?separators))
+   then (bind ?separators
+          (create$ " " (format nil "%c" 9) (format nil "%c" 10))))
+
+  (if (neq nil ?separator)
+   then (bind ?i (str-index ?separator ?string))
+   else (bind ?i (UNNAMED::index-substrings ?string ?separators)))
+
   (if (not ?i)
    then (create$ ?string)
-   else (create$ (sub-string 1 (- ?i 1) ?string)
-                 (split-string (sub-string (+ ?i (str-length ?separator))
-                                           (str-length ?string)
-                                           ?string)
-                                -max-split (- ?max-split 1)
-                                -max-substring (- ?max-substring 1)
-                                -separator ?separator))))
+   else (bind ?rest
+          (split-string (sub-string (+ ?i (str-length ?separator))
+                                    (str-length ?string)
+                                    ?string)
+                        -max-split (- ?max-split 1)
+                        -max-substring (- ?max-substring 1)
+                        -separator ?separator))
+        (if (and ?omit-empty
+                 (= ?i 1))
+         then ?rest
+         else (create$ (sub-string 1 (- ?i 1) ?string) ?rest))))
