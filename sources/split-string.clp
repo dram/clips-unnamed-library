@@ -41,12 +41,18 @@
 
   (if (neq nil ?separator)
    then (bind ?i (str-index ?separator ?string))
-   else (bind ?i (UNNAMED::index-substrings ?string ?separators)))
+        (bind ?separator-length (str-length ?separator))
+   else (bind ?i FALSE)
+        (foreach ?s ?separators
+          (if (and (bind ?j (str-index ?s ?string))
+                   (or (not ?i) (< ?j ?i)))
+           then (bind ?i ?j)
+                (bind ?separator-length (str-length ?s)))))
 
   (if (not ?i)
    then (create$ ?string)
    else (bind ?rest
-          (split-string (sub-string (+ ?i (str-length ?separator))
+          (split-string (sub-string (+ ?i ?separator-length)
                                     (str-length ?string)
                                     ?string)
                         -max-split (- ?max-split 1)
