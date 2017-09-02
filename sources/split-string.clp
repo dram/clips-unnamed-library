@@ -3,7 +3,7 @@
   (bind ?max-substring -1)
   (bind ?omit-blank TRUE)
   (bind ?separator nil)
-  (bind ?separators nil)
+  (bind ?separators (create$ " " (format nil "%c" 9) (format nil "%c" 10)))
 
   (bind ?option-length (length$ ?options))
   (bind ?i 1)
@@ -34,20 +34,16 @@
   (if (= ?max-split 0)
    then (return (create$ ?string)))
 
-  (if (and (eq nil ?separator)
-           (eq nil ?separators))
-   then (bind ?separators
-          (create$ " " (format nil "%c" 9) (format nil "%c" 10))))
-
-  (if (neq nil ?separator)
-   then (bind ?i (str-index ?separator ?string))
-        (bind ?separator-length (str-length ?separator))
-   else (bind ?i FALSE)
+  (if (eq nil ?separator)
+   then (bind ?i FALSE)
         (foreach ?s ?separators
           (if (and (bind ?j (str-index ?s ?string))
                    (or (not ?i) (< ?j ?i)))
            then (bind ?i ?j)
-                (bind ?separator-length (str-length ?s)))))
+                (bind ?separator-length (str-length ?s))))
+
+   else (bind ?i (str-index ?separator ?string))
+        (bind ?separator-length (str-length ?separator)))
 
   (if (not ?i)
    then (create$ ?string)
