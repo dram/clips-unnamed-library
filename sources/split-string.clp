@@ -1,7 +1,7 @@
 (deffunction split-string (?string $?options)
   (bind ?max-split -1)
   (bind ?max-substring -1)
-  (bind ?omit-empty TRUE)
+  (bind ?omit-blank TRUE)
   (bind ?separator nil)
   (bind ?separators nil)
 
@@ -15,8 +15,8 @@
       (case -max-substring
        then (bind ?max-substring (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
-      (case -omit-empty
-       then (bind ?omit-empty (nth$ (+ ?i 1) ?options))
+      (case -omit-blank
+       then (bind ?omit-blank (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
       (case -separator
        then (bind ?separator (nth$ (+ ?i 1) ?options))
@@ -51,10 +51,10 @@
                                     ?string)
                         -max-split (- ?max-split 1)
                         -max-substring (- ?max-substring 1)
-                        -omit-empty ?omit-empty
+                        -omit-blank ?omit-blank
                         -separator ?separator
                         -separators ?separators))
-        (if (and ?omit-empty
+        (if (and ?omit-blank
                  (= ?i 1))
          then ?rest
          else (create$ (sub-string 1 (- ?i 1) ?string) ?rest))))
