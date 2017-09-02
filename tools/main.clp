@@ -3,6 +3,7 @@
 
 (load* sources/delete-duplicates$.clp)
 (load* sources/empty$.clp)
+(load* sources/index-substrings.clp)
 (load* sources/replace-substring.clp)
 
 (defmodule MAIN)

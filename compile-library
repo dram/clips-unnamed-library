@@ -8,15 +8,6 @@ trap "rm -r $TMP" EXIT
 echo "(defglobal ?*output-file-path* = $1)" >>$TMP/start.clp
 shift
 echo "(defglobal ?*requested-functions* = (create$ $@))" >>$TMP/start.clp
-echo "(defglobal ?*function-facts-file* = $TMP/functions.clp)" >>$TMP/start.clp
-
-for file in sources/*.clp
-do
-    echo "(function (name $(basename -s .clp $file))" >>$TMP/functions.clp
-    echo "          (depends-on" >>$TMP/functions.clp
-    grep -o -P 'UNNAMED::\K([^\s\)]+)' $file | uniq >>$TMP/functions.clp
-    echo "))" >>$TMP/functions.clp
-done
 
 
 cd "$(dirname "$(readlink -f "$0")")"
