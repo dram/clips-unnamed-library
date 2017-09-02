@@ -26,7 +26,10 @@
             (while (eq STRING
                        (type (bind ?s (nth$ (bind ?i (+ ?i 1)) ?options))))
               (bind ?separators ?separators ?s)))
-      (default error)))
+      (default
+        (UNNAMED::leave-message ERROR join-strings
+                                "invalid option `%s'" (nth$ ?i ?options))
+        (return))))
 
   (if (= ?max-substring 0)
    then (return (create$)))

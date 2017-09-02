@@ -12,7 +12,10 @@
       (case -output-to-file
        then (bind ?out-file (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
-      (default error)))
+      (default
+        (UNNAMED::leave-message ERROR run-process
+                                "invalid option `%s'" (nth$ ?i ?options))
+        (return))))
 
   (bind ?command (create$ ?program))
   (foreach ?argument ?arguments

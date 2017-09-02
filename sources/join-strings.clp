@@ -8,7 +8,10 @@
       (case -separator
        then (bind ?separator (nth$ (+ ?i 1) ?options))
             (bind ?i (+ ?i 2)))
-      (default error)))
+      (default
+        (UNNAMED::leave-message ERROR join-strings
+                                "invalid option `%s'" (nth$ ?i ?options))
+        (return))))
 
   (bind ?length (length$ ?strings))
   (switch ?length
