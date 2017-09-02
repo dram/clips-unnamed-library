@@ -1,4 +1,4 @@
-(deffunction load-plain-file (?path)
+(deffunction load-binary-file (?path)
   (bind ?result "")
   (bind ?file (gensym*))
   (open ?path ?file)
