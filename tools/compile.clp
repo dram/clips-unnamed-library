@@ -68,7 +68,7 @@
   (assert (source (name ?name) (content ?source)))
   (assert (function (name ?name) (depends-on ?dependences)))
 
-  (if (UNNAMED::empty$ ?dependences)
+  (if (UNNAMED::emptyp ?dependences)
    then (assert (dependence-satisfied ?name))
    else (foreach
             ?dependence ?dependences
