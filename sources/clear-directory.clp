@@ -1,2 +1,2 @@
 (deffunction clear-directory (?name)
-  (system "/bin/rm -r " (UNNAMED::escape-shell-string ?name) "/*"))
+  (UNNAMED::run-process find (create$ ?name ! -path ?name -exec rm -r {} +)))
