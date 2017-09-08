@@ -1,5 +1,3 @@
 (deffunction write-plain-file (?path ?content)
-  (bind ?f (gensym*))
-  (open ?path ?f "w")
-  (printout ?f ?content)
-  (close ?f))
+  (UNNAMED::call-with-output-file ?path
+                                  printout -rest-arguments ?content))

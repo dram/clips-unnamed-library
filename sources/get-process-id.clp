@@ -1,6 +1,2 @@
 (deffunction get-process-id ()
-  (bind ?f (gensym*))
-  (open "/proc/self/stat" ?f)
-  (bind ?result (read-number ?f))
-  (close ?f)
-  ?result)
+  (UNNAMED::call-with-input-file "/proc/self/stat" read-number))

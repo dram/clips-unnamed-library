@@ -1,5 +1,3 @@
 (deffunction format-out-file (?path ?format $?fields)
-  (bind ?f (gensym*))
-  (open ?path ?f "w")
-  (format ?f ?format (expand$ ?fields))
-  (close ?f))
+  (UNNAMED::call-with-output-file ?path
+                                  format -rest-arguments ?format ?fields))
