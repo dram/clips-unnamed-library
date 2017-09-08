@@ -1,5 +1,5 @@
-(deffunction format-out-file (?file ?format $?fields)
+(deffunction format-out-file (?path ?format $?fields)
   (bind ?f (gensym*))
-  (open ?file ?f "w")
+  (open ?path ?f "w")
   (format ?f ?format (expand$ ?fields))
   (close ?f))
