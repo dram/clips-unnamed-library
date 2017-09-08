@@ -22,4 +22,4 @@ Miscellaneous tools for CLIPS.
 ...
 ```
 
-You can choose any name for the containing module, but `U` or `UNNAMED` are recommended.
+You can choose any name for the containing module, but `U` or `UNNAMED` are recommended. Or you can load code into `MAIN` module directly.
