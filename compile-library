@@ -5,7 +5,7 @@ TMP=$(mktemp -d /tmp/clips.XXXX)
 trap "rm -r $TMP" EXIT
 
 
-echo "(defglobal ?*output-file-path* = $1)" >>$TMP/start.clp
+echo "(defglobal ?*output-path* = $1)" >>$TMP/start.clp
 shift
 echo "(defglobal ?*requested-functions* = (create$ $@))" >>$TMP/start.clp
 
