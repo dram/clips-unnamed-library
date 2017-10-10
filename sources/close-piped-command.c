@@ -1,9 +1,9 @@
 //META/	AddUDF(env,
-//META/	       "UNNAMED-close-piped-process",
+//META/	       "UNNAMED-close-piped-command",
 //META/	       "v", 1, 1, "y",
-//META/	       UNNAMED_close_piped_process, "UNNAMED_close_piped_process",
+//META/	       UNNAMED_close_piped_command, "UNNAMED_close_piped_command",
 //META/	       NULL);
-static void UNNAMED_close_piped_process(
+static void UNNAMED_close_piped_command(
 	Environment *env, UDFContext *udfc, UDFValue *out)
 {
 	UDFValue name;

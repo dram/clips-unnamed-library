@@ -1,9 +1,9 @@
 //META/	AddUDF(env,
-//META/	       "UNNAMED-open-piped-process",
+//META/	       "UNNAMED-open-piped-command",
 //META/	       "v", 3, 3, "sys",
-//META/	       UNNAMED_open_piped_process, "UNNAMED_open_piped_process",
+//META/	       UNNAMED_open_piped_command, "UNNAMED_open_piped_command",
 //META/	       NULL);
-static void UNNAMED_open_piped_process(
+static void UNNAMED_open_piped_command(
 	Environment *env, UDFContext *udfc, UDFValue *out)
 {
 	UDFValue command, name, mode;

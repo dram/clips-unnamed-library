@@ -2,10 +2,6 @@
                                       ?arguments
                                       ?function
                                       ?rest-arguments)
-  (bind ?f (gensym*))
-  (UNNAMED-open-piped-process (UNNAMED::make-command ?program ?arguments)
-                              ?f
-                              "r")
-  (bind ?result (funcall ?function ?f (expand$ ?rest-arguments)))
-  (UNNAMED-close-piped-process ?f)
-  ?result)
+  (UNNAMED::call-with-input-command (UNNAMED::make-command ?program ?arguments)
+                                    ?function
+                                    ?rest-arguments))
