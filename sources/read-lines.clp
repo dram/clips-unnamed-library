@@ -1,0 +1,5 @@
+(deffunction read-lines (?f)
+  (bind ?result (create$))
+  (while (neq (bind ?line (readline ?f)) EOF)
+    (bind ?result ?result ?line))
+  ?result)
