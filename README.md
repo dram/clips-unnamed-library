@@ -7,7 +7,13 @@ Miscellaneous tools for CLIPS.
 ## Generate library file
 
 ```shell
-% ./compile-library unnamed.clp function-1 function-2 ...
+% ./compile-library output-path/ function-1 function-2 ...
+```
+
+Following command can be used to generate function list automatically:
+
+```shell
+grep -hoP 'U::\K(\S+)' foo.clp bar.clp ... | sort -u
 ```
 
 ## Include into project
